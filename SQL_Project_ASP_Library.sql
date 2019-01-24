@@ -131,8 +131,8 @@ end
 
 --Issue Book Procedure
 
-create proc proc_IssueBook
-(@bid int,@sid int)
+alter proc proc_IssueBook
+(@bid int,@sid varchar(100))
 as
 begin
 insert tbl_IssueBook values(@bid,@sid,getdate(),'Issued')
@@ -140,15 +140,37 @@ return @@identity
 end
 
 
---Show Book Procedure
+--Show Issue Book Procedure
 
-create proc proc_ShowBook
-(@Sid int)
+alter proc proc_ShowIssuedBook
+(@Sid varchar(100))
 as
 begin
-Select * from tbl_Book where bookid in
-(Select bookid from tbl_IssueBook where StudentEmailID=@Sid)
+Select tbl_IssueBook.IssueID,tbl_IssueBook.StudentEmailID,tbl_IssueBook.IssueDate,
+tbl_IssueBook.IssueStatus,tbl_Book.BookID,tbl_Book.BookTitle,tbl_Book.BookImage from tbl_IssueBook  
+join tbl_Book
+on
+tbl_Book.BookID=tbl_IssueBook.BookID
+where tbl_IssueBook.StudentEmailID=@Sid
+order by tbl_IssueBook.IssueDate desc
 end
+
+
+--Show All Issue Book Procedure
+
+alter proc proc_ShowAllIssuedBook
+(@key varchar(100))
+as
+begin
+Select tbl_IssueBook.IssueID,tbl_IssueBook.StudentEmailID,tbl_IssueBook.IssueDate,
+tbl_IssueBook.IssueStatus,tbl_Book.BookID,tbl_Book.BookTitle,tbl_Book.BookImage from tbl_IssueBook  
+join tbl_Book
+on
+tbl_Book.BookID=tbl_IssueBook.BookID
+where tbl_IssueBook.IssueID like '%'+@key+'%'
+order by tbl_IssueBook.IssueDate desc
+end
+
 
 
 select * from tbl_Student
@@ -157,13 +179,12 @@ select * from tbl_Book
 
 
 --Update Book Procedure
-
-create proc proc_update
-(@id int,@title int,@authorname varchar(100),@pages varchar(100),@category varchar(100))
+alter proc proc_update
+(@id int,@title varchar(100),@authorname varchar(100),@pages varchar(100),@category varchar(100),@image varchar(100))
 as
 begin
 update tbl_Book set BookTitle=@title , BookAuthorName=@authorname , BookPages=@pages , 
-BookCategory=@category where BookID=@id
+BookCategory=@category,BookImage=@image where BookID=@id
 return @@rowcount
 end
 
