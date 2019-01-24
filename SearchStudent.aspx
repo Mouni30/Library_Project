@@ -13,7 +13,8 @@
                 <asp:Button ID="btn_search" runat="server" Text="SearchBook" CssClass="btn-danger" OnClick="btn_search_Click"  />
             </div>
         <div class="form-group">
-            <asp:GridView ID="gv_books" runat="server" CssClass="table" AutoGenerateColumns="false" OnSelectedIndexChanged="gv_books_SelectedIndexChanged" >
+            <asp:GridView ID="gv_books" runat="server" CssClass="table" AutoGenerateColumns="false" 
+                OnSelectedIndexChanged="gv_books_SelectedIndexChanged"  OnPageIndexChanging="gv_books_PageIndexChanging" AllowPaging="true" PageSize="5" >
                 <Columns>
 
                     <asp:TemplateField HeaderText="Book ID" >
@@ -48,7 +49,7 @@
 
                       <asp:TemplateField HeaderText="Book Image" >
                         <ItemTemplate>
-                            <asp:Image ID="lbl_img" runat="server" ImageUrl='<% # Eval("BookImage") %>' />
+                            <asp:Image ID="lbl_img" runat="server" Height="100px" Width="100px" ImageUrl='<% # Eval("BookImage") %>' />
                         </ItemTemplate>
                     </asp:TemplateField>
 

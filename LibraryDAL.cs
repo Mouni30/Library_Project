@@ -142,7 +142,7 @@ public class LibraryDAL
 
 
     }
-    public bool Update(int id, string title, string authorname, int pages, string category)
+    public bool Update(int id, string title, string authorname, int pages, string category,string address)
     {
         SqlCommand com_update = new SqlCommand("proc_update", con);
         com_update.Parameters.AddWithValue("@id", id);
@@ -150,6 +150,7 @@ public class LibraryDAL
         com_update.Parameters.AddWithValue("@authorname", authorname);
         com_update.Parameters.AddWithValue("@pages", pages);
         com_update.Parameters.AddWithValue("@category", category);
+        com_update.Parameters.AddWithValue("@image", address);
         com_update.CommandType = CommandType.StoredProcedure;
         SqlParameter para_return = new SqlParameter();
         para_return.Direction = ParameterDirection.ReturnValue;
@@ -167,31 +168,58 @@ public class LibraryDAL
             return false;
         }
     }
-    public List<BookModel> ShowBook(int Sid)
+    public List<IssueBookModel> ShowBook(string Sid)
     {
-        SqlCommand com_Show = new SqlCommand("proc_ShowBook", con);
+        SqlCommand com_Show = new SqlCommand("proc_ShowIssuedBook", con);
         com_Show.Parameters.AddWithValue("@Sid", Sid);
         com_Show.CommandType = CommandType.StoredProcedure;
         con.Open();
         SqlDataReader dr = com_Show.ExecuteReader();
 
-        List<BookModel> list = new List<BookModel>();
+        List<IssueBookModel> list = new List<IssueBookModel>();
         while (dr.Read())
         {
-            BookModel model = new BookModel();
-            model.BookID = dr.GetInt32(0);
-            model.BookTitle = dr.GetString(1);
-            model.BookAuthorName = dr.GetString(2);
-            model.BookPages = dr.GetInt32(3);
-            model.BookCategory = dr.GetString(4);
-            model.BookImage = dr.GetString(5);
+            IssueBookModel model = new IssueBookModel();
+            model.IssueID = dr.GetInt32(0);
+            model.StudentEmailID = dr.GetString(1);
+            model.IssueDate = dr.GetDateTime(2);
+            model.IssueStatus = dr.GetString(3);
+            model.BookID = dr.GetInt32(4);
+            model.BookTitle = dr.GetString(5);
+            model.BookImage = dr.GetString(6);
             list.Add(model);
         }
         con.Close();
         return list;
 
     }
-    public int IssueBook(int BID, int SID)
+    public List<IssueBookModel> ShowAllIssuedBook(string Key)
+    {
+        SqlCommand com_Show = new SqlCommand("proc_ShowAllIssuedBook", con);
+        com_Show.Parameters.AddWithValue("@key", Key);
+        com_Show.CommandType = CommandType.StoredProcedure;
+        con.Open();
+        SqlDataReader dr = com_Show.ExecuteReader();
+
+        List<IssueBookModel> list = new List<IssueBookModel>();
+        while (dr.Read())
+        {
+            IssueBookModel model = new IssueBookModel();
+            model.IssueID = dr.GetInt32(0);
+            model.StudentEmailID = dr.GetString(1);
+            model.IssueDate = dr.GetDateTime(2);
+            model.IssueStatus = dr.GetString(3);
+            model.BookID = dr.GetInt32(4);
+            model.BookTitle = dr.GetString(5);
+            model.BookImage = dr.GetString(6);
+            list.Add(model);
+        }
+        con.Close();
+        return list;
+
+    }
+
+    public int IssueBook(int BID,string SID)
     {
         SqlCommand com_IssueBook = new SqlCommand("proc_IssueBook", con);
         com_IssueBook.Parameters.AddWithValue("@bid", BID);

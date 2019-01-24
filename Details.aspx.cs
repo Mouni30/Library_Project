@@ -7,6 +7,13 @@ using System.Web.UI.WebControls;
 
 public partial class Details : System.Web.UI.Page
 {
+    protected override void OnPreInit(EventArgs e)
+    {
+        if (Session["type"].ToString() == "Admin")
+        {
+            this.MasterPageFile = "~/Admin.Master";
+        }
+    }
     protected void Page_Load(object sender, EventArgs e)
     {
         string id = Request.QueryString["bid"];
@@ -24,13 +31,13 @@ public partial class Details : System.Web.UI.Page
 
     protected void btn_IssueBook_Click(object sender, EventArgs e)
     {
-        if (Session["type"] == "Student")
+        if (Session["type"].ToString() == "Student")
         {
             int bid = Convert.ToInt32(txt_Bookid.Text);
-            int sid = Convert.ToInt32(Session["loginid"]);
+            string sid = Session["loginid"].ToString();
             LibraryDAL dal = new LibraryDAL();
-            int issueid = dal.IssueBook(bid, sid);
-            Response.Redirect("~/IssuedDone.aspx?issueid=" + issueid);
+            int issueid = dal.IssueBook(bid,sid);
+            Response.Redirect("~/IssueDone.aspx?issueid=" + issueid);
         }
         else
         {

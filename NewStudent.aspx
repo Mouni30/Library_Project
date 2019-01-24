@@ -10,6 +10,60 @@
     <script src="JS/jquery-ui.js"></script>
     <link href="CSS/bootstrap.css" rel="stylesheet" />
     <link href="CSS/jquery-ui.css" rel="stylesheet" />
+    <script>
+        $(document).ready(function () {
+            $(".text-danger").hide();
+            $("#btn_newstudent").click(function () {
+                if ($("#txt_studentemailid").val().length == 0) {
+                    $("#txt_studentemailid_error").show();
+                    $("#txt_studentemailid").focus();
+                    return false;
+                }
+                else
+                {
+                    $("#txt_studentemailid_error").hide();
+                }
+            if ($("#txt_studentname").val().length == 0)
+            {
+                $("#txt_studentname_error").show();
+                $("#txt_studentname").focus();
+                return false;
+            }
+            else
+            {
+                $("#txt_studentname_error").hide();
+            }
+            
+            if ($("#txt_studentpassword").val().length == 0) {
+                $("#txt_studentpassword_error").show();
+                $("#txt_studentpassword").focus();
+                return false;
+            }
+            else
+            {
+                $("#txt_studentpassword_error").hide();
+            }
+            
+            if ($("#txt_studentContactNo").val().length == 0) {
+                $("#txt_studentContactNo_error").show();
+                $("#txt_studentContactNo").focus();
+                return false;
+            }
+            else
+            {
+                $("#txt_studentContactNo_error").hide();
+            }
+            if ($("#file_StudentImage").val().length == 0) {
+                $("#file_StudentImage_error").show();
+                $("#file_StudentImage").focus();
+                return false;
+            }
+            else {
+                $("#file_StudentImage_error").hide();
+            }
+        });
+     });
+    </script>
 </head>
 <body>
     <div align="center">
@@ -47,7 +101,7 @@
     </div>
     <div class="form-group">
         <asp:Button ID="btn_newstudent" runat="server" Text="NewStudent" CssClass="btn-danger" OnClick="btn_newstudent_Click" />
-        <asp:Label ID="lbl_msg" runat="server" CssClass="text-danger" />
+        <asp:Label ID="lbl_msg" runat="server"  />
         <br />
         <a href="Login.aspx" class="btn-link" style="width:200px">Login</a>
     </div>

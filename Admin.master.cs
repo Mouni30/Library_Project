@@ -9,6 +9,19 @@ public partial class Admin : System.Web.UI.MasterPage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (Session["loginid"] == null)
+        {
+            Response.Redirect("~/Login.aspx");
+        }
+        else
+        {
+            lbl_userid.Text = Session["loginid"].ToString();
+        }
+    }
 
+    protected void btn_logout_Click(object sender, EventArgs e)
+    {
+        Session.Abandon();
+        Response.Redirect("~/Login.aspx");
     }
 }

@@ -1,4 +1,4 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Student.master.cs" Inherits="Student" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Admin.master.cs" Inherits="Admin" %>
 
 <!DOCTYPE html>
 
@@ -14,34 +14,34 @@
     </asp:ContentPlaceHolder>
 </head>
 <body>
-     <form id="form1" runat="server">
+    <form id="form1" runat="server">
     <div align="center">
         <table style="width:900px;text-align:center;font-size:22px" class="table">
             <tr>
-                <td colspan="5">
+                <td colspan="4">
                     Welcome to Library
                 </td>
             </tr>
             <tr>
-                <td colspan="5">
+                <td colspan="4">
                     User ID : <asp:Label ID="lbl_userid" runat="server" CssClass="text-success" />
                 </td>
             </tr>
             <tr>
-                <td><a href="StudentHome.aspx" class="btn-link">Home</a></td>
-                <td><a href="SearchStudent.aspx" class="btn-link">Search</a></td>
-                <td><a href="ShowIssueBook.aspx" class="btn-link">IssueBook</a></td>
-                <td><a href="ContactUs.aspx" class="btn-link">Contact US</a></td>
+                <td><a href="AdminHome.aspx" class="btn-link">Home</a></td>
+                <td><a href="SearchAdmin.aspx" class="btn-link">Search</a></td>
+                 <td><a href="NewBooks.aspx" class="btn-link">AddBook</a></td>
+                 <td><a href="AllIssuedBook.aspx" class="btn-link">AllIssuedBook</a></td>
                 <td><asp:LinkButton ID="btn_logout" runat="server" CssClass="btn-link" Text="Logout" OnClick="btn_logout_Click" /></td>
             </tr>
             <tr>
-                <td colspan="5">
+                <td colspan="4">
                     <asp:ContentPlaceHolder ID="main" runat="server" />
                 </td>
             </tr>
             <tr>
                 <td colspan="2" style="text-align:left;">
-                    Developed By : Student
+                    Developed By : Admin
                 </td>
                 <td colspan="2" style="text-align:right;">
                     Copyright Information

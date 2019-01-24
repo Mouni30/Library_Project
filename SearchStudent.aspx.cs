@@ -26,4 +26,13 @@ public partial class SearchStudent : System.Web.UI.Page
         string id = (gv_books.SelectedRow.FindControl("lbl_bid") as Label).Text;
         Response.Redirect("~/Details.aspx?bid=" + id);
     }
+
+    protected void gv_books_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        gv_books.PageIndex = e.NewPageIndex;
+        LibraryDAL dal = new LibraryDAL();
+        List<BookModel> list = dal.SearchBook(txt_search.Text);
+        gv_books.DataSource = list;
+        gv_books.DataBind();
+    }
 }

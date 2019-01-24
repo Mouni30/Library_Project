@@ -10,6 +10,37 @@
     <script src="JS/jquery-ui.js"></script>
     <link href="CSS/bootstrap.css" rel="stylesheet" />
     <link href="CSS/jquery-ui.css" rel="stylesheet" />
+    <script>
+        $(document).ready(function () {
+            $(".text-danger").hide();
+            $("#btn_login").click(function () {
+                if ($("#txt_loginid").val().length == 0) {
+                    $("#txt_loginid_error").show();
+                    $("#txt_loginid").focus();
+                    return false;
+                }
+                else {
+                    $("#txt_loginid_error").hide();
+                }
+                if ($("#txt_password").val().length == 0) {
+                    $("#txt_password_error").show();
+                    $("#txt_password").focus();
+                    return false;
+                }
+                else {
+                    $("#txt_password_error").hide();
+                }
+                if ($("#txt_logintype").val().length == 0) {
+                    $("#txt_logintype_error").show();
+                    $("#txt_logintype").focus();
+                    return false;
+                }
+                else {
+                    $("#txt_logintype_error").hide();
+                }
+            });
+        });
+    </script>
 </head>
 <body>
     <div align="center">
@@ -31,7 +62,7 @@
         </div>
         <div class="form-group"> 
             <asp:Button ID="btn_login" runat="server" Text="Login" CssClass="btn-danger" OnClick="btn_login_Click" />
-            <asp:Label ID="lbl_msg" runat="server" CssClass="text-danger" />
+            <asp:Label ID="lbl_msg" runat="server"  />
             <br />
             <a href="NewStudent.aspx" class="btn-link" style="width:200px;">New Student</a>
             
